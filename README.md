@@ -49,4 +49,6 @@ jobs:
 ## Reference
 
 * [Jira Basic authentication](https://developer.atlassian.com/server/jira/platform/basic-authentication/)
-* [Repository the code was forked from](https://github.com/armona/jira-release-actions)
+* [Repository the code was forked from](https://github.com/StalemateInc/jira-release-action)
+* https://github.com/actions/typescript-action
+* https://github.com/vercel/ncc
