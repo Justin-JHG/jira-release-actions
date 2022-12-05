@@ -1,1 +1,4 @@
 dist/** -diff linguist-generated=true 
+
+# Ignore all differences in line endings
+*        -crlf
