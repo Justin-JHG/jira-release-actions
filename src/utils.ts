@@ -1,8 +1,10 @@
-import { debug } from '@actions/core'
-import axios, { AxiosError } from 'axios'
-import { ErrorResponse } from './types'
+import {debug} from '@actions/core'
+import axios, {AxiosError} from 'axios'
+import {ErrorResponse} from './types'
 
-const isAxiosError = <ResponseType>(error: unknown): error is AxiosError<ResponseType> => {
+const isAxiosError = <ResponseType>(
+  error: unknown
+): error is AxiosError<ResponseType> => {
   return axios.isAxiosError(error)
 }
 
