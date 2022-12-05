@@ -201,7 +201,7 @@ async function run() {
         const project = await api.loadProject();
         (0, core_1.info)(DebugMessages.PROJECT_LOADED(project.id));
         if (env_1.DRY_RUN === 'true') {
-            const version = project.versions.find(v => v.name === env_1.RELEASE_NAME);
+            const version = project.versions.find((v) => v.name === env_1.RELEASE_NAME);
             if (version === undefined) {
                 (0, core_1.info)(DebugMessages.VERSION_NOT_FOUND(env_1.RELEASE_NAME));
             }
@@ -210,7 +210,7 @@ async function run() {
             }
             return;
         }
-        let version = project.versions.find(v => v.name === env_1.RELEASE_NAME);
+        let version = project.versions.find((v) => v.name === env_1.RELEASE_NAME);
         const release = env_1.RELEASE === true;
         const archive = env_1.ARCHIVE === true;
         if (version === undefined) {
