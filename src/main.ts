@@ -1,19 +1,8 @@
-import {info, setFailed} from '@actions/core'
-import {
-  EMAIL,
-  API_TOKEN,
-  SUBDOMAIN,
-  RELEASE_NAME,
-  PROJECT,
-  CREATE,
-  TICKETS,
-  DRY_RUN,
-  RELEASE,
-  ARCHIVE
-} from './env'
-import {API} from './api'
+import { info, setFailed } from '@actions/core'
+import { EMAIL, API_TOKEN, SUBDOMAIN, RELEASE_NAME, PROJECT, CREATE, TICKETS, DRY_RUN, RELEASE, ARCHIVE } from './env'
+import { API } from './api'
 import * as DebugMessages from './constants/debug-messages'
-import {CreateVersionParams, UpdateVersionParams} from './types'
+import { CreateVersionParams, UpdateVersionParams } from './types'
 
 const printConfiguration = (): void => {
   info(`
@@ -42,7 +31,7 @@ async function run(): Promise<void> {
     info(DebugMessages.PROJECT_LOADED(project.id))
 
     if (DRY_RUN === 'true') {
-      const version = project.versions.find(v => v.name === RELEASE_NAME)
+      const version = project.versions.find((v) => v.name === RELEASE_NAME)
 
       if (version === undefined) {
         info(DebugMessages.VERSION_NOT_FOUND(RELEASE_NAME))
@@ -53,7 +42,7 @@ async function run(): Promise<void> {
       return
     }
 
-    let version = project.versions.find(v => v.name === RELEASE_NAME)
+    let version = project.versions.find((v) => v.name === RELEASE_NAME)
     const release = RELEASE === true
     const archive = ARCHIVE === true
 
@@ -68,7 +57,7 @@ async function run(): Promise<void> {
           name: RELEASE_NAME,
           released: release === true && archive !== true,
           projectId: Number(project.id),
-          ...(release && {releaseDate: new Date().toISOString()}),
+          ...(release && { releaseDate: new Date().toISOString() }),
           archived: false
         }
 
@@ -81,7 +70,7 @@ async function run(): Promise<void> {
 
       const versionToUpdate: UpdateVersionParams = {
         released: release,
-        ...(release && {releaseDate: new Date().toISOString()}),
+        ...(release && { releaseDate: new Date().toISOString() }),
         archived: false
       }
       version = await api.updateVersion(version.id, versionToUpdate)
