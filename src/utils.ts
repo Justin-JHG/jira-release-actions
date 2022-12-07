@@ -1,4 +1,4 @@
-import { debug } from '@actions/core'
+//import { debug } from '@actions/core'
 import axios, { AxiosError } from 'axios'
 import { ErrorResponse } from './types'
 
@@ -16,7 +16,7 @@ export const toMoreDescriptiveError = (error: unknown): Error | unknown => {
   ) {
     return new Error(error.response?.data.errorMessages[0])
   } else {
-    debug(`${error}`)
+    //debug(`${error}`)
     return error
   }
 }
