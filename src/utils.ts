@@ -1,10 +1,14 @@
 import { debug } from '@actions/core'
-import { isAxiosError } from 'axios'
+import { AxiosError, isAxiosError } from 'axios'
 import { ErrorResponse } from './types'
+
+const hasAxiosError = <ResponseType>(error: unknown): error is AxiosError<ResponseType> => {
+  return isAxiosError(error)
+}
 
 export const toMoreDescriptiveError = (error: unknown): Error | unknown => {
   if (
-    isAxiosError<ErrorResponse>(error) &&
+    hasAxiosError<ErrorResponse>(error) &&
     Number(error.response?.status) >= 400 &&
     Number(error.response?.status) < 500 &&
     Array.isArray(error.response?.data.errorMessages)
