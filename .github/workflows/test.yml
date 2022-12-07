@@ -28,7 +28,6 @@ jobs:
           release_name: New Release Name
           archive: true
           release: false
-      - name: Setup tmate session
-        if: success() || failure()
-        uses: mxschmitt/action-tmate@v3
+          create: true
+
           
