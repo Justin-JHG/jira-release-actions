@@ -1,5 +1,6 @@
-import { debug } from '@actions/core'
+//import { debug } from '@actions/core'
 import axios from 'axios'
+//import axios from 'axios'
 import { CreateVersionParams, JiraProject, JiraVersion, UpdateVersionParams } from './types'
 import { toMoreDescriptiveError } from './utils'
 

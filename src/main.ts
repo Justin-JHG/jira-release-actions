@@ -1,8 +1,9 @@
-import { info, setFailed } from '@actions/core'
+//import { info, setFailed } from '@actions/core'
 import { EMAIL, API_TOKEN, SUBDOMAIN, RELEASE_NAME, PROJECT, CREATE, TICKETS, DRY_RUN, RELEASE, ARCHIVE } from './env'
 import { API } from './api'
 import * as DebugMessages from './constants/debug-messages'
 import { CreateVersionParams, UpdateVersionParams } from './types'
+import { info, setFailed } from '@actions/core'
 
 const printConfiguration = (): void => {
   info(`
