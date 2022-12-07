@@ -29,6 +29,6 @@ jobs:
           archive: true
           release: false
       - name: Setup tmate session
-          if: success() || failure()
-          uses: mxschmitt/action-tmate@v3
+        if: success() || failure()
+        uses: mxschmitt/action-tmate@v3
           
