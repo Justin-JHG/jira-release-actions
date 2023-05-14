@@ -28,7 +28,8 @@ jobs:
 
     - name: Merge Changes from Master to Melbourne Branch
       run: |
-        git checkout -b Melbourne --track origin/Melbourne
+        git checkout -b Melbourne
+        git push
         git pull
         git merge origin/main --allow-unrelated-histories --no-edit
     
