@@ -44,6 +44,7 @@
           npm install all
           npm run all
           git checkout Melbourne src/main.ts
+          git add src/main.ts
           git add .
           git commit -m "Rebuild Melbourne branch"
           git push origin Melbourne
