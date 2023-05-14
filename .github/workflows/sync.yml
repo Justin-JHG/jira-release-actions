@@ -33,6 +33,7 @@ jobs:
 
     - name: Merge Changes from Master to Melbourne Branch
       run: |
+        git pull
         git checkout -b Melbourne
         git push --set-upstream origin Melbourne
         git pull
