@@ -41,7 +41,7 @@ jobs:
 
     - name: Rebuild Melbourne Branch
       run: |
-        git checkout Melbourne
+        npm run install
         npm run all
         git add -A
         git commit -m "Rebuild Melbourne branch"
