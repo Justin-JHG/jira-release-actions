@@ -41,6 +41,7 @@ jobs:
         git checkout --ours src/main.ts 
         git add -A
         git commit -m "Merge other-branch while ignoring main.ts"
+        git push
 
     
 
