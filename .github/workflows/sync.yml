@@ -38,8 +38,7 @@ jobs:
         git push --set-upstream origin Melbourne
         git pull
         git merge -X theirs origin/main --allow-unrelated-histories --no-edit
-        git checkout --ours src/main.ts 
-        git push
+        git checkout --ours src/main.ts
 
     
 
@@ -47,7 +46,7 @@ jobs:
       run: |
         npm install all
         npm run all
-        git add -A
+        git add .
         git commit -m "Rebuild Melbourne branch"
         git push
 
