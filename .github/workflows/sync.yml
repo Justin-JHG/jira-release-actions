@@ -39,7 +39,9 @@ jobs:
         git pull
         git merge -X theirs origin/main --allow-unrelated-histories --no-edit
         git checkout --ours src/main.ts 
-        
+        git add -A
+        git commit -m "Merge other-branch while ignoring main.ts"
+
     
 
     - name: Rebuild Melbourne Branch
