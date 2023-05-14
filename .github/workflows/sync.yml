@@ -49,7 +49,7 @@ jobs:
         npm run all
         git add -A
         git commit -m "Rebuild Melbourne branch"
-        git push origin Melbourne
+        git push
 
 
     - name: Create Pull Request
