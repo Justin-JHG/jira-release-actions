@@ -49,11 +49,11 @@
 
       # - name: Rebuild Melbourne Branch
       #   run: |
-          npm install all
-          npm run all
-          git add .
-          git commit -m "Rebuild Melbourne branch"
-          git push
+#           npm install all
+#           npm run all
+#           git add .
+#           git commit -m "Rebuild Melbourne branch"
+#           git push
 
 
       # - name: Create Pull Request
