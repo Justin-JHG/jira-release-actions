@@ -31,6 +31,7 @@
           git config --global user.name "justin-jhg"
 
       - name: Merge Changes from Master to Melbourne Branch
+        continue-on-error: true
         run: |
           git push origin --delete Melbourne
           git checkout -b Melbourne
@@ -40,13 +41,12 @@
           git checkout Melbourne src/main.ts
           git add src/main.ts
           git commit -m "restore the main.ts file"
-          git push origin Melbourne
+          git push --force
                 
       - name: Rebuild Melbourne Branch
         run: |
           npm install all
           npm run all
-
           git add .
           git commit -m "Rebuild Melbourne branch"
           git push origin Melbourne
