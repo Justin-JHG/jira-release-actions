@@ -36,21 +36,15 @@
           git checkout -b Melbourne
           git push --set-upstream origin Melbourne
           git pull
-          git merge -X ours origin/main --allow-unrelated-histories --no-edit
-      
-
+          git merge -X theirs origin/main --allow-unrelated-histories --no-edit
+                
       - name: Rebuild Melbourne Branch
         run: |
           npm install all
           npm run all
           git add .
           git commit -m "Rebuild Melbourne branch"
-          git push
-
-      # # - name: Create Pull Request
-      # #   uses: peter-evans/create-pull-request@v5
-      # #   with:
-      # #     branch: feature/melbourne-time-zone
+          git push --force
 
       - name: Create Pull Request
         env:
