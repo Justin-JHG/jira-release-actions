@@ -25,6 +25,11 @@ jobs:
       with:
         ref: feature/melbourne-time-zone
 
+    - name: Set git user
+      run: |
+        git config --global user.email "justin.liu@jhg.com.au"
+        git config --global user.name "justin-jhg"
+
 
     - name: Merge Changes from Master to Melbourne Branch
       run: |
