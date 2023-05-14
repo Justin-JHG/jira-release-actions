@@ -5,6 +5,8 @@ on:
   # Triggers the workflow on push events but only for listed branches
   push:
     branches: [main]
+    
+  workflow_dispatch:
   
 # Cancel the current run if a new run is triggered
 concurrency:
@@ -13,14 +15,49 @@ concurrency:
 
 jobs:
   createPullRequest:
+
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3    
-      - name: create pull request
-        run: |
-          git checkout -b syncFromMain
-          git push --set-upstream origin syncFromMain
-          gh pr create -B feature/melbourne-time-zone -H syncFromMain --title 'Merge main into melbourne-time-zone' --body 'Created by Github action'
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        ref: feature/melbourne-time-zone
+
+    - name: Set git user
+      run: |
+        git config --global user.email "justin.liu@jhg.com.au"
+        git config --global user.name "justin-jhg"
+
+
+    - name: Merge Changes from Master to Melbourne Branch
+      run: |
+        git push origin --delete Melbourne
+        git checkout -b Melbourne
+        git push --set-upstream origin Melbourne
+        git pull
+        git merge -X theirs origin/main --allow-unrelated-histories --no-edit
+        git checkout --ours src/main.ts 
+        git push
+
+    
+
+    - name: Rebuild Melbourne Branch
+      run: |
+        npm install all
+        npm run all
+        git add -A
+        git commit -m "Rebuild Melbourne branch"
+        git push
+
+
+    - name: Create Pull Request
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh pr create \
+        --title "merge changes into melbourne-time-zone" \
+        --body "This pull request was automatically created by a GitHub Action to merge the latest changes main branch" \
+        --base feature/melbourne-time-zone \
+        --head Melbourne
