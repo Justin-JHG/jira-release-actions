@@ -37,14 +37,16 @@
           git push --set-upstream origin Melbourne
           git pull
           git merge -X theirs origin/main --allow-unrelated-histories --no-edit
+
                 
       - name: Rebuild Melbourne Branch
         run: |
           npm install all
           npm run all
+          git checkout Melbourne src/main.ts
           git add .
           git commit -m "Rebuild Melbourne branch"
-          git push --force
+          git push origin Melbourne
 
       - name: Create Pull Request
         env:
