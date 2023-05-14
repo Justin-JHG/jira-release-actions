@@ -39,6 +39,12 @@
           git pull
           git merge -X theirs origin/main --allow-unrelated-histories --no-edit
           git checkout --ours src/main.ts
+          npm install all
+          npm run all
+          git add .
+          git commit -m "Rebuild Melbourne branch"
+          git push
+
 
       
 
