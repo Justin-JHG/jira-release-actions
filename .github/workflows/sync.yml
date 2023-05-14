@@ -29,7 +29,8 @@ jobs:
     - name: Merge Changes from Master to Melbourne Branch
       run: |
         git checkout -b Melbourne
-        git merge origin/main --no-edit
+        git fetch
+        git merge main --no-edit
     
 
     - name: Rebuild Melbourne Branch
