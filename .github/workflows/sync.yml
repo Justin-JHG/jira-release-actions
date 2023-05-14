@@ -36,14 +36,13 @@
           git checkout -b Melbourne
           git push --set-upstream origin Melbourne
           git pull
-          git merge -X theirs origin/main --allow-unrelated-histories --no-edit
+          git merge -X ours origin/main --allow-unrelated-histories --no-edit
       
 
       - name: Rebuild Melbourne Branch
         run: |
           npm install all
           npm run all
-          git checkout --ours src/main.ts
           git add .
           git commit -m "Rebuild Melbourne branch"
           git push
