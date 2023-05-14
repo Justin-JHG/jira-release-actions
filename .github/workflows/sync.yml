@@ -23,7 +23,26 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
-        ref: main
+        ref: feature/melbourne-time-zone
+
+
+    - name: Merge Changes from Master to Melbourne Branch
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        gh auth login
+        git checkout Melbourne --track origin/Melbourne
+        git merge main --no-edit
+        git push origin Melbourne
+
+    - name: Rebuild Melbourne Branch
+      run: |
+        git checkout Melbourne
+        npm run all
+        git add -A
+        git commit -m "Rebuild Melbourne branch"
+        git push origin Melbourne
+
 
     - name: Create Pull Request
       env:
@@ -33,4 +52,4 @@ jobs:
         --title "merge changes into melbourne-time-zone" \
         --body "This pull request was automatically created by a GitHub Action to merge the latest changes main branch" \
         --base feature/melbourne-time-zone \
-        --head main
+        --head Melbourne
