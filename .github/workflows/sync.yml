@@ -39,25 +39,25 @@
           git merge -X theirs origin/main --allow-unrelated-histories --no-edit
       
 
-      - name: Rebuild Melbourne Branch
-        run: |
-          npm install all
-          npm run all
-          git add .
-          git commit -m "Rebuild Melbourne branch"
-          git push
+      # - name: Rebuild Melbourne Branch
+      #   run: |
+      #     npm install all
+      #     npm run all
+      #     git add .
+      #     git commit -m "Rebuild Melbourne branch"
+      #     git push
+
+      # # - name: Create Pull Request
+      # #   uses: peter-evans/create-pull-request@v5
+      # #   with:
+      # #     branch: feature/melbourne-time-zone
 
       # - name: Create Pull Request
-      #   uses: peter-evans/create-pull-request@v5
-      #   with:
-      #     branch: feature/melbourne-time-zone
-
-      - name: Create Pull Request
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create \
-          --title "merge changes into melbourne-time-zone" \
-          --body "This pull request was automatically created by a GitHub Action to merge the latest changes main branch" \
-          --base feature/melbourne-time-zone \
-          --head feature/Melbourne
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     gh pr create \
+      #     --title "merge changes into melbourne-time-zone" \
+      #     --body "This pull request was automatically created by a GitHub Action to merge the latest changes main branch" \
+      #     --base feature/melbourne-time-zone \
+      #     --head feature/Melbourne
