@@ -30,7 +30,7 @@ jobs:
       run: |
         git checkout -b Melbourne
         git fetch
-        git merge origin/main --no-edit
+        git merge origin/main --allow-unrelated-histories --no-edit
     
 
     - name: Rebuild Melbourne Branch
