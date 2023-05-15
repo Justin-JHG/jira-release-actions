@@ -1,5 +1,17 @@
 import { info, setFailed } from '@actions/core'
-import { EMAIL, API_TOKEN, SUBDOMAIN, RELEASE_NAME, PROJECT, CREATE, TICKETS, DRY_RUN, RELEASE, ARCHIVE } from './env'
+import {
+  EMAIL,
+  API_TOKEN,
+  SUBDOMAIN,
+  RELEASE_NAME,
+  TIME_ZONE,
+  PROJECT,
+  CREATE,
+  TICKETS,
+  DRY_RUN,
+  RELEASE,
+  ARCHIVE
+} from './env'
 import { API } from './api'
 import * as DebugMessages from './constants/debug-messages'
 import { CreateVersionParams, UpdateVersionParams } from './types'
@@ -11,6 +23,7 @@ const printConfiguration = (): void => {
       * project: ${PROJECT}
       * subdomain: ${SUBDOMAIN}
       * release_name: ${RELEASE_NAME}
+      * time_zone: ${TIME_ZONE}
       * create: ${CREATE}
       * tickets: ${TICKETS}
       * release: ${RELEASE}
@@ -46,8 +59,16 @@ async function run(): Promise<void> {
     const release = RELEASE === true
     const archive = ARCHIVE === true
 
+    let timezone = TIME_ZONE
+    if (timezone === undefined) {
+      timezone = 'America/Los_Angeles'
+    }
+
+    const localDateString = new Date().toLocaleString('en-US', { timeZone: timezone })
+    const localISOString = new Date(localDateString).toISOString()
+
     if (version === undefined) {
-      // Create new release and ignore ARCHIVE value, release date will use Australia/Melbourne timezone
+      // Create new release and ignore ARCHIVE value
       info(DebugMessages.VERSION_NOT_FOUND(RELEASE_NAME))
 
       if (CREATE) {
@@ -57,7 +78,7 @@ async function run(): Promise<void> {
           name: RELEASE_NAME,
           released: release === true && archive !== true,
           projectId: Number(project.id),
-          ...(release && { releaseDate: new Date(Date.now() + 10 * 60 * 60 * 1000).toISOString() }),
+          ...(release && { releaseDate: localISOString }),
           archived: false
         }
 
@@ -70,7 +91,7 @@ async function run(): Promise<void> {
 
       const versionToUpdate: UpdateVersionParams = {
         released: release,
-        ...(release && { releaseDate: new Date(Date.now() + 10 * 60 * 60 * 1000).toISOString() }),
+        ...(release && { releaseDate: localISOString }),
         archived: false
       }
       version = await api.updateVersion(version.id, versionToUpdate)
