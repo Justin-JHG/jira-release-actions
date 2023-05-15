@@ -59,12 +59,12 @@ async function run(): Promise<void> {
     const release = RELEASE === true
     const archive = ARCHIVE === true
 
-    let timezone = TIME_ZONE
-    if (timezone === undefined) {
-      timezone = 'America/Los_Angeles'
+    let localTimezone = TIME_ZONE
+    if (localTimezone === undefined) {
+      localTimezone = 'America/Los_Angeles'
     }
 
-    const localDateString = new Date().toLocaleString('en-US', { timeZone: timezone })
+    const localDateString = new Date().toLocaleString('en-US', { timeZone: localTimezone })
     const localISOString = new Date(localDateString).toISOString()
 
     if (version === undefined) {
