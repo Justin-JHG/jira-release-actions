@@ -27,7 +27,7 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "all": "^0.0.0",
-    "axios": "^1.7.4"
+    "axios": "^1.7.8"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
