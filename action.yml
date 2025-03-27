@@ -1,6 +1,6 @@
-name: 'Jira Release/Archive Action'
-description: 'Create, Release or Archive a Jira Fix Version'
-author: 'Justin Liu'
+name: "Jira Release/Archive Action"
+description: "Create, Release or Archive a Jira Fix Version"
+author: "Justin Liu"
 branding:
   icon: box
   color: yellow
@@ -22,32 +22,32 @@ inputs:
     required: true
   time_zone:
     description: timezone used for setting release date, default UTC
-    default: 'England/Greenwich'
+    default: "England/Greenwich"
     required: false
   release:
-    description: 'Create the version as released'
-    default: 'false'
+    description: "Create the version as released"
+    default: "false"
     required: false
   archive:
-    description: 'Create the version as archived'
-    default: 'false'
+    description: "Create the version as archived"
+    default: "false"
     required: false
   tickets:
     description: Comma-separated list of Jira issue keys to be assigned to the release.
-    default: ''
+    default: ""
     required: false
   create:
     description: Create a Jira release.
-    default: 'true'
+    default: "true"
     required: false
   dry_run:
     description: Perform only read actions and show the logs.
-    default: 'false'
+    default: "false"
     required: false
 outputs:
   release_id:
-    description: 'Id of the release, created or updated'
+    description: "Id of the release, created or updated"
 
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: "node20"
+  main: "dist/index.js"

@@ -1,10 +1,10 @@
-name: 'build-test'
+name: "build-test"
 on: # rebuild any PRs and main branch changes
   pull_request:
   push:
     branches:
       - main
-      - 'releases/*'
+      - "releases/*"
       - feature/melbourne-time-zone
 
 jobs:
@@ -26,8 +26,7 @@ jobs:
           jira_base_url: http://
           jira_project: PROJ
           release_name: New Release Name
-          time_zone: Australia/Melbourne          
+          time_zone: Australia/Melbourne
           release: false
           create: true
           archive: true
-          
