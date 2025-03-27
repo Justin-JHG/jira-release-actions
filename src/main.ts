@@ -11,10 +11,10 @@ import {
   DRY_RUN,
   RELEASE,
   ARCHIVE,
-} from "./env";
-import { API } from "./api";
-import * as DebugMessages from "./constants/debug-messages";
-import { CreateVersionParams, UpdateVersionParams } from "./types";
+} from "./env.js";
+import { API } from "./api.js";
+import * as DebugMessages from "./constants/debug-messages.js";
+import { CreateVersionParams, UpdateVersionParams } from "./types.js";
 
 const printConfiguration = (): void => {
   info(`

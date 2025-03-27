@@ -1,6 +1,6 @@
 import { debug } from "@actions/core";
 import { isAxiosError } from "axios";
-import { ErrorResponse } from "./types";
+import { ErrorResponse } from "./types.js";
 
 export const toMoreDescriptiveError = (error: unknown): Error | unknown => {
   if (

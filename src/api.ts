@@ -5,8 +5,8 @@ import {
   JiraProject,
   JiraVersion,
   UpdateVersionParams,
-} from "./types";
-import { toMoreDescriptiveError } from "./utils";
+} from "./types.js";
+import { toMoreDescriptiveError } from "./utils.js";
 
 export class API {
   authToken: string;
