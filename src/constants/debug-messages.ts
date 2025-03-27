@@ -7,7 +7,7 @@ export const VERSION_NOT_FOUND = (name: string): string =>
   `Version ${name} not found`;
 export const VERSION_FOUND = (name: string): string => `Version ${name} found`;
 export const VERSION_WILL_BE_CREATED = (name: string): string =>
-  `Version ${name} is going to the created`;
+  `Version ${name} is going to be created`;
 export const VERSION_WILL_BE_UPDATED = (name: string): string =>
   `Version ${name} found and is going to be updated`;
 export const VERSION_WILL_BE_ARCHIVED = (name: string): string =>
