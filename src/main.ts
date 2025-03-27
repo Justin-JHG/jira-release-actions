@@ -31,7 +31,7 @@ const printConfiguration = (): void => {
   `);
 };
 
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   try {
     if (DRY_RUN === "ci") {
       printConfiguration();
@@ -131,5 +131,3 @@ async function run(): Promise<void> {
     setFailed(e);
   }
 }
-
-run();
