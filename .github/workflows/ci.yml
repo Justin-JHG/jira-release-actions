@@ -67,7 +67,3 @@ jobs:
           release: false
           create: true
           archive: true
-
-      # - name: Print Output
-      #   id: output
-      #   run: echo "${{ steps.test-action.outputs.time }}"
