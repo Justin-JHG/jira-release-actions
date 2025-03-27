@@ -17,6 +17,7 @@
   "engines": {
     "node": ">=20"
   },
+  "type": "module",
   "scripts": {
     "bundle": "npm run format:write && npm run package",
     "ci-test": "NODE_OPTIONS=--experimental-vm-modules NODE_NO_WARNINGS=1 npx jest",
