@@ -1,4 +1,4 @@
-import { info, setFailed, setOutput } from '@actions/core'
+import { info, setFailed, setOutput } from "@actions/core";
 import {
   EMAIL,
   API_TOKEN,
@@ -10,11 +10,11 @@ import {
   TICKETS,
   DRY_RUN,
   RELEASE,
-  ARCHIVE
-} from './env'
-import { API } from './api'
-import * as DebugMessages from './constants/debug-messages'
-import { CreateVersionParams, UpdateVersionParams } from './types'
+  ARCHIVE,
+} from "./env.js";
+import { API } from "./api.js";
+import * as DebugMessages from "./constants/debug-messages.js";
+import { CreateVersionParams, UpdateVersionParams } from "./types.js";
 
 const printConfiguration = (): void => {
   info(`
@@ -28,106 +28,106 @@ const printConfiguration = (): void => {
       * tickets: ${TICKETS}
       * release: ${RELEASE}
       * archive: ${ARCHIVE}
-  `)
-}
+  `);
+};
 
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   try {
-    if (DRY_RUN === 'ci') {
-      printConfiguration()
+    if (DRY_RUN === "ci") {
+      printConfiguration();
 
-      return
+      return;
     }
 
-    const api = new API(EMAIL, API_TOKEN, PROJECT, SUBDOMAIN)
-    const project = await api.loadProject()
-    info(DebugMessages.PROJECT_LOADED(project.id))
+    const api = new API(EMAIL, API_TOKEN, PROJECT, SUBDOMAIN);
+    const project = await api.loadProject();
+    info(DebugMessages.PROJECT_LOADED(project.id));
 
-    if (DRY_RUN === 'true') {
-      const version = project.versions.find((v) => v.name === RELEASE_NAME)
+    if (DRY_RUN === "true") {
+      const version = project.versions.find((v) => v.name === RELEASE_NAME);
 
       if (version === undefined) {
-        info(DebugMessages.VERSION_NOT_FOUND(RELEASE_NAME))
+        info(DebugMessages.VERSION_NOT_FOUND(RELEASE_NAME));
       } else {
-        info(DebugMessages.VERSION_FOUND(RELEASE_NAME))
+        info(DebugMessages.VERSION_FOUND(RELEASE_NAME));
       }
 
-      return
+      return;
     }
 
-    let version = project.versions.find((v) => v.name === RELEASE_NAME)
-    const release = RELEASE === true
-    const archive = ARCHIVE === true
+    let version = project.versions.find((v) => v.name === RELEASE_NAME);
+    const release = RELEASE === true;
+    const archive = ARCHIVE === true;
 
-    const localDateString = new Date().toLocaleString('en-US', { timeZone: TIME_ZONE })
-    const localISOString = new Date(localDateString).toISOString()
+    const localDateString = new Date().toLocaleString("en-US", {
+      timeZone: TIME_ZONE,
+    });
+    const localISOString = new Date(localDateString).toISOString();
 
     if (version === undefined) {
       // Create new release and ignore ARCHIVE value
-      info(DebugMessages.VERSION_NOT_FOUND(RELEASE_NAME))
+      info(DebugMessages.VERSION_NOT_FOUND(RELEASE_NAME));
 
       if (CREATE) {
-        info(DebugMessages.VERSION_WILL_BE_CREATED(RELEASE_NAME))
+        info(DebugMessages.VERSION_WILL_BE_CREATED(RELEASE_NAME));
 
         const versionToCreate: CreateVersionParams = {
           name: RELEASE_NAME,
           released: release === true && archive !== true,
           projectId: Number(project.id),
           ...(release && { releaseDate: localISOString }),
-          archived: false
-        }
+          archived: false,
+        };
 
-        version = await api.createVersion(versionToCreate)
-        info(DebugMessages.VERSION_CREATED(RELEASE_NAME))
-        setOutput('release_id', version.id)
+        version = await api.createVersion(versionToCreate);
+        info(DebugMessages.VERSION_CREATED(RELEASE_NAME));
+        setOutput("release_id", version.id);
       }
     } else {
       // update release and ignore ARCHIVE value
-      info(DebugMessages.VERSION_WILL_BE_UPDATED(RELEASE_NAME))
+      info(DebugMessages.VERSION_WILL_BE_UPDATED(RELEASE_NAME));
 
       const versionToUpdate: UpdateVersionParams = {
         released: release,
         ...(release && { releaseDate: localISOString }),
-        archived: false
-      }
-      version = await api.updateVersion(version.id, versionToUpdate)
-      info(DebugMessages.VERSION_UPDATED(RELEASE_NAME))
-      setOutput('release_id', version.id)
+        archived: false,
+      };
+      version = await api.updateVersion(version.id, versionToUpdate);
+      info(DebugMessages.VERSION_UPDATED(RELEASE_NAME));
+      setOutput("release_id", version.id);
     }
 
     // Assign JIRA issues to Release
-    if (TICKETS !== '') {
-      const tickets = TICKETS.split(',')
+    if (TICKETS !== "") {
+      const tickets = TICKETS.split(",");
 
       for (const ticket of tickets) {
-        info(DebugMessages.UPDATING_TICKET(ticket))
+        info(DebugMessages.UPDATING_TICKET(ticket));
 
         if (version?.id !== undefined) {
-          await api.updateIssue(ticket, version.id)
-          info(DebugMessages.TICKET_UPDATED(ticket, version.id))
+          await api.updateIssue(ticket, version.id);
+          info(DebugMessages.TICKET_UPDATED(ticket, version.id));
         }
       }
     }
 
     // Now let's do the ARCHIVE business
     if (archive) {
-      info(DebugMessages.VERSION_WILL_BE_ARCHIVED(RELEASE_NAME))
+      info(DebugMessages.VERSION_WILL_BE_ARCHIVED(RELEASE_NAME));
 
       // if archive then we ignore release value
       const versionToUpdate: UpdateVersionParams = {
         released: false,
         releaseDate: undefined,
-        archived: archive
-      }
+        archived: archive,
+      };
       if (version?.id !== undefined) {
-        version = await api.updateVersion(version.id, versionToUpdate)
-        info(DebugMessages.VERSION_UPDATED(RELEASE_NAME))
+        version = await api.updateVersion(version.id, versionToUpdate);
+        info(DebugMessages.VERSION_UPDATED(RELEASE_NAME));
       }
     }
   } catch (_e) {
-    const e: Error = _e as Error
-    setFailed(e)
+    const e: Error = _e as Error;
+    setFailed(e);
   }
 }
-
-run()

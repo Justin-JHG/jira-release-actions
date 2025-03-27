@@ -96,11 +96,7 @@ Thumbs.db
 
 # Ignore built ts files
 __tests__/runner/*
-lib/**/*
 
-token.json
-
-# replit
-.replit
-.vscode/
-.idea/
+# IDE files
+.idea
+*.code-workspace

@@ -1,14 +1,12 @@
-
 [![build-test](https://github.com/Justin-JHG/jira-release-actions/actions/workflows/test.yml/badge.svg)](https://github.com/Justin-JHG/jira-release-actions/actions/workflows/test.yml)
 
-# Jira Release/Archive Action 
+# Jira Release/Archive Action
 
 This Github action connects your CI and your Jira instance by creating release(Fix Version) and assign Jira issues to the release as part of your CI process.
 
 - Create a JIRA release, release date supports timezone overwrite.
 - Assign JIRA Issues to release
 - Achive a JIRA release
-
 
 ## Usage
 
@@ -33,34 +31,33 @@ jobs:
         time_zone: Australia/Melbourne
 ```
 
-----
+---
 
 ## Action Spec:
 
 ### Inputs
 
-|Name |Description |Required? |Type |
-|---|---|---|---|
-| jira_base_url  | URL of Jira instance. Example: `https://<yourdomain>.atlassian.net` | Yes | String |
-| jira_api_token | **Access Token** for Authorization. Example: `HXe8DGg1iJd2AopzyxkFB7F2` ([How To](https://confluence.atlassian.com/cloud/api-tokens-938839638.html)) | Yes | String |
-| jira_user_email | email of the user for which **Access Token** was created for . Example: `human@example.com` | Yes | String |
-| jira_project | Key of the jira project | Yes | String |
-| release_name | Name of the release (Fix Version) | Yes | String |
-| time_zone | timezone for release date to be set, e.g. Australia/Melbourne, default is UTC time | No | String |
-| release | Mark Jira fix version as released. Defaults to false. | No | Boolean |
-| archive | Mark Jira fix version as archived. Defaults to false. | No | Boolean |
-| tickets | Comma-separated list of Jira Issue Keys to include in the release. Defaults to ''. | No | String |
+| Name            | Description                                                                                                                                          | Required? | Type    |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------- |
+| jira_base_url   | URL of Jira instance. Example: `https://<yourdomain>.atlassian.net`                                                                                  | Yes       | String  |
+| jira_api_token  | **Access Token** for Authorization. Example: `HXe8DGg1iJd2AopzyxkFB7F2` ([How To](https://confluence.atlassian.com/cloud/api-tokens-938839638.html)) | Yes       | String  |
+| jira_user_email | email of the user for which **Access Token** was created for . Example: `human@example.com`                                                          | Yes       | String  |
+| jira_project    | Key of the jira project                                                                                                                              | Yes       | String  |
+| release_name    | Name of the release (Fix Version)                                                                                                                    | Yes       | String  |
+| time_zone       | timezone for release date to be set, e.g. Australia/Melbourne, default is UTC time                                                                   | No        | String  |
+| release         | Mark Jira fix version as released. Defaults to false.                                                                                                | No        | Boolean |
+| archive         | Mark Jira fix version as archived. Defaults to false.                                                                                                | No        | Boolean |
+| tickets         | Comma-separated list of Jira Issue Keys to include in the release. Defaults to ''.                                                                   | No        | String  |
 
 ### Outputs
 
-| Name | Description |
-|---|---|
+| Name       | Description                           |
+| ---------- | ------------------------------------- |
 | release_id | Id of the release, created or updated |
-
 
 ## Reference
 
-* [Jira Basic authentication](https://developer.atlassian.com/server/jira/platform/basic-authentication/)
-* [Repository the code was forked from](https://github.com/StalemateInc/jira-release-action)
-* https://github.com/actions/typescript-action
-* https://github.com/vercel/ncc
+- [Jira Basic authentication](https://developer.atlassian.com/server/jira/platform/basic-authentication/)
+- [Repository the code was forked from](https://github.com/StalemateInc/jira-release-action)
+- https://github.com/actions/typescript-action
+- https://github.com/vercel/ncc

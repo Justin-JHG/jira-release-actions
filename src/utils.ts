@@ -1,6 +1,6 @@
-import { debug } from '@actions/core'
-import { isAxiosError } from 'axios'
-import { ErrorResponse } from './types'
+import { debug } from "@actions/core";
+import { isAxiosError } from "axios";
+import { ErrorResponse } from "./types.js";
 
 export const toMoreDescriptiveError = (error: unknown): Error | unknown => {
   if (
@@ -9,9 +9,9 @@ export const toMoreDescriptiveError = (error: unknown): Error | unknown => {
     Number(error.response?.status) < 500 &&
     Array.isArray(error.response?.data.errorMessages)
   ) {
-    return new Error(error.response?.data.errorMessages[0])
+    return new Error(error.response?.data.errorMessages[0]);
   } else {
-    debug(`${error}`)
-    return error
+    debug(`${error}`);
+    return error;
   }
-}
+};
