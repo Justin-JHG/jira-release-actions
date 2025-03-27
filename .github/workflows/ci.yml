@@ -57,7 +57,6 @@ jobs:
         id: test-action
         uses: ./
         with:
-          milliseconds: 2000
           dry_run: ci
           jira_user_email: example@example.com
           jira_api_token: foobar
