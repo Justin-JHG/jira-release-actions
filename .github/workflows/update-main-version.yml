@@ -11,10 +11,8 @@ on:
         description: The tag or reference to use
         required: true
       major_version:
-        type: choice
         description: The major version to update
-        options:
-          - v1
+        required: true
 
 jobs:
   tag:
