@@ -2,8 +2,8 @@ name: Update Main Version
 run-name: Move ${{ github.event.inputs.major_version }} to ${{ github.event.inputs.target }}
 
 permissions:
-  contents: read
-
+  contents: write
+  
 on:
   workflow_dispatch:
     inputs:
@@ -15,19 +15,20 @@ on:
         description: The major version to update
         options:
           - v1
+          - v2
 
 jobs:
   tag:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Git config
-        run: |
-          git config user.name justin-jhg
-          git config user.email justin.liu@jhg.com.au
-      - name: Tag new target
-        run: git tag -f ${{ github.event.inputs.major_version }} ${{ github.event.inputs.target }}
-      - name: Push new tag
-        run: git push origin ${{ github.event.inputs.major_version }} --force
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Git config
+      run: |
+        git config user.name justin-jhg
+        git config user.email justin.liu@jhg.com.au
+    - name: Tag new target
+      run: git tag -f ${{ github.event.inputs.major_version }} ${{ github.event.inputs.target }}
+    - name: Push new tag
+      run: git push origin ${{ github.event.inputs.major_version }} --force
