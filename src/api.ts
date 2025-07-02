@@ -59,20 +59,6 @@ export class API {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async updateIssue(ticket_id: string, version_id: string): Promise<any> {
     try {
-      // Check if issue exists first
-      await axios.get(`${this.domain}/rest/api/3/issue/${ticket_id}`, {
-        headers: this._headers(),
-      });
-    } catch (error: unknown) {
-      // If issue doesn't exist, return early without error
-      if (axios.isAxiosError(error) && error.response?.status === 404) {
-        debug(`Issue ${ticket_id} not found, skipping update`);
-        return null;
-      }
-      throw error;
-    }
-
-    try {
       const response = await axios.put(
         `${this.domain}/rest/api/3/issue/${ticket_id}`,
         {
