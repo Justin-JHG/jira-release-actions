@@ -47424,6 +47424,7 @@ class API {
             throw toMoreDescriptiveError(error);
         }
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async updateIssue(ticket_id, version_id) {
         try {
             // Check if issue exists first
@@ -47435,17 +47436,12 @@ class API {
             // If issue doesn't exist, return early without error
             if (axios.isAxiosError(error) && error.response?.status === 404) {
                 coreExports.debug(`Issue ${ticket_id} not found, skipping update`);
-                return { success: false, error: "Issue not found" };
+                return null;
             }
-            // For other errors during issue check, also return gracefully
-            coreExports.debug(`Error checking issue ${ticket_id}: ${error}`);
-            return {
-                success: false,
-                error: `Error checking issue: ${error instanceof Error ? error.message : String(error)}`,
-            };
+            throw error;
         }
         try {
-            await axios.put(`${this.domain}/rest/api/3/issue/${ticket_id}`, {
+            const response = await axios.put(`${this.domain}/rest/api/3/issue/${ticket_id}`, {
                 update: {
                     fixVersions: [
                         {
@@ -47454,14 +47450,10 @@ class API {
                     ],
                 },
             }, { headers: this._headers() });
-            return { success: true };
+            return response.data;
         }
         catch (error) {
-            coreExports.debug(`Error updating issue ${ticket_id}: ${error}`);
-            return {
-                success: false,
-                error: `Error updating issue: ${error instanceof Error ? error.message : String(error)}`,
-            };
+            throw toMoreDescriptiveError(error);
         }
     }
     async loadProject() {
@@ -47571,13 +47563,8 @@ async function run() {
             for (const ticket of tickets) {
                 coreExports.info(UPDATING_TICKET(ticket));
                 if (version?.id !== undefined) {
-                    const result = await api.updateIssue(ticket, version.id);
-                    if (result.success) {
-                        coreExports.info(TICKET_UPDATED(ticket, version.id));
-                    }
-                    else {
-                        coreExports.info(`Failed to update ticket ${ticket}: ${result.error}`);
-                    }
+                    await api.updateIssue(ticket, version.id);
+                    coreExports.info(TICKET_UPDATED(ticket, version.id));
                 }
             }
         }
