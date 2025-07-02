@@ -47546,11 +47546,17 @@ async function run() {
         // Assign JIRA issues to Release
         if (TICKETS !== "") {
             const tickets = TICKETS.split(",");
-            for (const ticket of tickets) {
+            for (const ticketRaw of tickets) {
+                const ticket = ticketRaw.trim();
                 coreExports.info(UPDATING_TICKET(ticket));
                 if (version?.id !== undefined) {
-                    await api.updateIssue(ticket, version.id);
-                    coreExports.info(TICKET_UPDATED(ticket, version.id));
+                    try {
+                        await api.updateIssue(ticket, version.id);
+                        coreExports.info(TICKET_UPDATED(ticket, version.id));
+                    }
+                    catch (error) {
+                        coreExports.info(`Failed to update ticket ${ticket}: ${error}`);
+                    }
                 }
             }
         }
