@@ -40850,7 +40850,7 @@ function requireGetIntrinsic () {
 					if (!allowMissing) {
 						throw new $TypeError('base intrinsic for ' + name + ' exists, but the property is not available.');
 					}
-					return void 0;
+					return void undefined$1;
 				}
 				if ($gOPD && (i + 1) >= parts.length) {
 					var desc = $gOPD(value, part);
