@@ -40398,7 +40398,7 @@ function requireCallBindApplyHelpers () {
 	var $call = requireFunctionCall();
 	var $actualApply = requireActualApply();
 
-	/** @type {import('.')} */
+	/** @type {(args: [Function, thisArg?: unknown, ...args: unknown[]]) => Function} TODO FIXME, find a way to use import('.') */
 	callBindApplyHelpers = function callBindBasic(args) {
 		if (args.length < 1 || typeof args[0] !== 'function') {
 			throw new $TypeError('a function is required');
@@ -40594,6 +40594,7 @@ function requireGetIntrinsic () {
 		'%Error%': $Error,
 		'%eval%': eval, // eslint-disable-line no-eval
 		'%EvalError%': $EvalError,
+		'%Float16Array%': typeof Float16Array === 'undefined' ? undefined$1 : Float16Array,
 		'%Float32Array%': typeof Float32Array === 'undefined' ? undefined$1 : Float32Array,
 		'%Float64Array%': typeof Float64Array === 'undefined' ? undefined$1 : Float64Array,
 		'%FinalizationRegistry%': typeof FinalizationRegistry === 'undefined' ? undefined$1 : FinalizationRegistry,
