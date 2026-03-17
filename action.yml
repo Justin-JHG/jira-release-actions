@@ -49,5 +49,5 @@ outputs:
     description: "Id of the release, created or updated"
 
 runs:
-  using: "node20"
+  using: "node24"
   main: "dist/index.js"
