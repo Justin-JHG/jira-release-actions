@@ -6,7 +6,7 @@ This GitHub Action connects your CI and your Jira instance by creating release (
 
 - Create a Jira release, release date supports timezone overwrite.
 - Assign Jira Issues to release.
-- Archive a Jira release.
+- Archive an existing Jira release.
 
 ## Usage
 
