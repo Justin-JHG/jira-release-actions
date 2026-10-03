@@ -14,8 +14,8 @@ This GitHub Action connects your CI and your Jira instance by creating release (
 
 ```yaml
 jobs:
-  release-fix-version:
-    name: Release Jira Fix Version
+  Assign issues to release:
+    name: create release and assign
     runs-on: ubuntu-latest
     steps:
       uses: justin-jhg/jira-release-actions@v2
